@@ -9,13 +9,15 @@ module Rbash
     end
 
     def reload!
-      @os = `uname`
-      @ps1 = '[{USER} {PWD}]$ '
+      $OS = `uname`.chomp
+      $PS1 = '[{USER} {PWD}]$ '
+      $USER = ENV['USER']
+      $HOME = ENV['HOME']
     end
 
     def prompt
-      path = Dir.pwd.gsub(ENV['HOME'], '~')
-      @ps1.gsub('{PWD}', path).gsub('{USER}', ENV['USER'])
+      path = Dir.pwd.gsub($HOME, '~')
+      $PS1.gsub('{PWD}', path).gsub('{USER}', $USER)
     end
 
     def start(cwd='.')

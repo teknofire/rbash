@@ -7,14 +7,23 @@ module Rbash
     end
 
     def cd(h)
-      path = File.join(h).gsub('~', ENV['HOME'])
-      path = ENV['HOME'] if path.nil? or path.empty?
+      path = File.join(h).gsub('~', $HOME)
+      path = $HOME if path.nil? or path.empty?
 
       Dir.chdir(path) 
     end
 
     def ls(h)
-      system("ls --color #{h.join(' ')}")
+      case $OS
+      when "Darwin"
+        ls = "ls -G"
+      when "Linux" 
+        ls = "ls --color"
+      else
+        ls = "ls"
+      end
+
+      system "#{ls} #{h.join(' ')}"
     end
   end
 end
