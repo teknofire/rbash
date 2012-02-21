@@ -5,6 +5,24 @@ module Rbash
   class Shell
     def initialize
       @cmds = Rbash::ShellCmds.new
+      reload!
+    end
+
+    def reload!
+      @os = `uname`
+      @ps1 = '[{USER} {PWD}]$ '
+    end
+
+    def prompt
+      path = Dir.pwd.gsub(ENV['HOME'], '~')
+      @ps1.gsub('{PWD}', path).gsub('{USER}', ENV['USER'])
+    end
+
+    def start(cwd='.')
+      run("cd #{cwd}")
+      while line = Readline.readline(prompt, true)
+        run(line)
+      end
     end
 
     def run(cmd)

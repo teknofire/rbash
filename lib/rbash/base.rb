@@ -14,16 +14,13 @@ module Rbash
 
     def start
       @stty_save = `stty -g`.chomp
-      
-      @shell.run('cd ~')
-      while line = Readline.readline(prompt, true)
-        @shell.run(line)
-      end
+      @shell.start
     rescue Interrupt => e
       print "\n"
       retry
-      #system('stty', @stty_save) #Restore
-      #exit
+    ensure
+      system('stty', @stty_save) #Restore
+      exit
     end
   end
 end
