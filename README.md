@@ -18,3 +18,4 @@ TODO
 * Add support for OSX 
   * Fix ls in OSX, doesn't support --color
 * Add tests
+* Figure out how to fix Some commands (like jobs) don't behave correctly
