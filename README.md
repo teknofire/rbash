@@ -17,3 +17,4 @@ TODO
   * Custom prompt handling
 * Add support for OSX 
   * Fix ls in OSX, doesn't support --color
+* Add tests
